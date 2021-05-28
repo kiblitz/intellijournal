@@ -1,19 +1,16 @@
 import pathlib
 
 def get_folder():
-  return pathlib.Path.home() / '.intellijournal'
-
-def mk_folder():
-  get_folder().mkdir(exist_ok=True) 
+  folder = pathlib.Path.home() / '.intellijournal'
+  folder.mkdir(exist_ok=True) 
+  return folder
 
 def get_journal():
-  return get_folder() / 'journal.db'
-
-def touch_journal():
-  get_journal().touch()
+  journal = get_folder() / 'journal.db'
+  journal.touch()
+  return journal
 
 def get_config():
-  return get_folder() / 'config'
-
-def touch_config():
-  get_config().touch()
+  config = get_folder() / 'config'
+  config.touch()
+  return config
