@@ -6,12 +6,13 @@ import time
 def get_conn():
   return sqlite3.connect(dir_handler.get_journal())
 
-def exec_command(comm):
+def exec_command(comm, *args):
   conn = get_conn()
   cursor = conn.cursor()
-  comm(cursor)
+  res = comm(cursor, *args)
   conn.commit()
   conn.close()
+  return res
 
 def create_entries_table(cursor):
   comm = '''CREATE TABLE IF NOT EXISTS entries (
