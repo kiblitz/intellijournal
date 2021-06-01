@@ -9,10 +9,14 @@ def get_conn():
 def exec_command(comm, *args):
   conn = get_conn()
   cursor = conn.cursor()
-  res = comm(cursor, *args)
-  conn.commit()
-  conn.close()
-  return res
+  try:
+    res = comm(cursor, *args)
+    conn.commit()
+    return res
+  finally:
+    cursor.close()
+    conn.close()
+  return None
 
 def create_entries_table(cursor):
   comm = '''CREATE TABLE IF NOT EXISTS entries (
